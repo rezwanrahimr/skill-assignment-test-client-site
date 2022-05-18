@@ -53,7 +53,10 @@ const Home = () => {
     return (
         <div>
             <h1>This is Home Page</h1>
-            <Button onClick={() => navigate("/addtask")} variant="primary"> Add task</Button>{' '}
+            <Button className='my-5' variant="success" size="lg" onClick={() => navigate("/addtask")} active>
+            Add Task + 
+            </Button>{' '}
+          
             <div>
                 {
                     tasks.map(task => <li key={task._id} > {task.status === 'completed' ? <s >{task.title}</s> : task.title} <button onClick={() => complete(task._id)} >complete</button> <button onClick={() => deleteTodo(task._id)} >delete</button> </li>)
