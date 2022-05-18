@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import url from '../../Api';
 import auth from '../../firebase.init';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
-
     const [tasks, setTask] = useState([]);
     const [update, setUpdate] = useState(false);
     const navigate = useNavigate();
@@ -20,6 +21,8 @@ const Home = () => {
             })
 
     }, [user?.email, update])
+
+
     const complete = (id) => {
         const body = { status: 'completed' }
         fetch(url + '/update-todo/' + id, {
@@ -31,10 +34,13 @@ const Home = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.status === 1) {
+                    toast('Complete')
                     setUpdate(!update)
                 }
             })
     }
+
+
     const deleteTodo = (id) => {
 
         fetch(url + '/todos/' + id, {
@@ -50,18 +56,39 @@ const Home = () => {
                 }
             })
     }
+
+    
     return (
-        <div>
-            <h1>This is Home Page</h1>
-            <Button className='my-5' variant="success" size="lg" onClick={() => navigate("/addtask")} active>
-            Add Task + 
-            </Button>{' '}
-          
+        <div className='container mt-4'>
             <div>
-                {
-                    tasks.map(task => <li key={task._id} > {task.status === 'completed' ? <s >{task.title}</s> : task.title} <button onClick={() => complete(task._id)} >complete</button> <button onClick={() => deleteTodo(task._id)} >delete</button> </li>)
-                }
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>complete</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            tasks.map((task,index) => <tr  key={task._id}>
+                                <td>{index+1}</td>
+                                <td>{task.status === 'completed' ? <s >{task.title}</s> : task.title}</td>
+                                <td>{task.description}</td>
+                                <td> <Button variant="warning" onClick={() => complete(task._id)}>Complete</Button>{' '}</td>
+                                <td> <Button variant="danger" onClick={() => deleteTodo(task._id)}>Delete</Button>{' '}</td>
+                            </tr>)
+                        }
+                       
+                    </tbody>
+                </Table>
             </div>
+            <Button className='my-5' variant="success" size="lg" onClick={() => navigate("/addtask")} active>
+                Add Task +
+            </Button>{' '}
+            <ToastContainer />
         </div>
     );
 };
