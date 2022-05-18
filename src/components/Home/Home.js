@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import url from '../../Api';
 import auth from '../../firebase.init';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const Home = () => {
     const [tasks, setTask] = useState([]);
@@ -88,7 +88,7 @@ const Home = () => {
             <Button className='my-5' variant="success" size="lg" onClick={() => navigate("/addtask")} active>
                 Add Task +
             </Button>{' '}
-            <ToastContainer />
+           
         </div>
     );
 };

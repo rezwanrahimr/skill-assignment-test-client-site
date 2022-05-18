@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../src/firebase.init'
 
 const Login = () => {
@@ -14,11 +15,7 @@ const Login = () => {
         error,
       ] = useSignInWithEmailAndPassword(auth);
       if (error) {
-        return (
-          <div>
-            <p>Error: {error.message}</p>
-          </div>
-        );
+       toast(error.message);
       }
       if (loading) {
         return <p>Loading...</p>;

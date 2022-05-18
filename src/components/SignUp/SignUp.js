@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 const SignUp = () => {
     const navigate = useNavigate();
@@ -14,21 +15,13 @@ const SignUp = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
   
     if (error) {
-      return (
-        <div>
-          <p>Error: {error.message}</p>
-        </div>
-      );
+      toast(error.message);
     }
     if (loading) {
       return <p>Loading...</p>;
     }
     if (user) {
-      return (
-        <div>
-          <p>Registered User: {user.email}</p>
-        </div>
-      );
+     navigate('/home')
     }
     return (
         <div>

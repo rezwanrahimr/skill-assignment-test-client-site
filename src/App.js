@@ -7,6 +7,8 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import RequreAuth from './components/RequreAuth/RequreAuth';
 import SignUp from './components/SignUp/SignUp';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -14,12 +16,13 @@ function App() {
       <Header></Header>
      <Routes>
 
-       <Route path='/' element={<Home></Home>}></Route>
+       <Route path='/' element={<RequreAuth><Home></Home></RequreAuth>}></Route>
        <Route path='/home' element={<RequreAuth><Home></Home></RequreAuth> }></Route>
        <Route path='/login' element={<Login></Login>}></Route>
        <Route path='/signUp' element={<SignUp></SignUp>}></Route>
        <Route path='/addtask' element={<RequreAuth><AddTask></AddTask></RequreAuth> }></Route>
      </Routes>
+     <ToastContainer />
     </div>
   );
 }
