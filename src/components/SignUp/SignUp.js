@@ -60,7 +60,7 @@ const SignUp = () => {
                                     />
                                     <div className="text-center mt-3">
                                         <button onClick={() => createUserWithEmailAndPassword(email, password)} type="submit" className="btn btn-primary mb-3">
-                                            Login
+                                            Sign Up
                                         </button>
 
                                         <p onClick={() => navigate("/login")}>

@@ -5,6 +5,7 @@ import AddTask from './components/AddTask/AddTask';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
+import RequreAuth from './components/RequreAuth/RequreAuth';
 import SignUp from './components/SignUp/SignUp';
 
 function App() {
@@ -14,10 +15,10 @@ function App() {
      <Routes>
 
        <Route path='/' element={<Home></Home>}></Route>
-       <Route path='/home' element={<Home></Home>}></Route>
+       <Route path='/home' element={<RequreAuth><Home></Home></RequreAuth> }></Route>
        <Route path='/login' element={<Login></Login>}></Route>
        <Route path='/signUp' element={<SignUp></SignUp>}></Route>
-       <Route path='/addtask' element={<AddTask></AddTask>}></Route>
+       <Route path='/addtask' element={<RequreAuth><AddTask></AddTask></RequreAuth> }></Route>
      </Routes>
     </div>
   );
